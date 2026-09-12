@@ -1,0 +1,14 @@
+build
+dist
+.env
+
+.vscode/
+README.md
+TODOS.md
+
+logs/
+*.log
+
+**/*.html
+
+**/*.ts.ejs

@@ -1,0 +1,114 @@
+import { useNavigation, useSearchParams, useLoaderData } from 'react-router';
+import type { LoaderFunctionArgs } from 'react-router';
+import { apiFetchServer } from '~/lib/api-server';
+
+interface PaginatedResponse {
+  records: Record<string, unknown>[];
+  pagination: { page: number; limit: number; total: number; totalPages: number };
+}
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const page = url.searchParams.get('page') ?? '1';
+  const search = url.searchParams.get('search') ?? '';
+  const qs = new URLSearchParams({ page, limit: '10', search }).toString();
+
+  return apiFetchServer<PaginatedResponse>(request, `/api/<%= entity.tableName %>?${qs}`);
+}
+
+export default function <%= entity.name %>ListPage() {
+  const { records, pagination } = useLoaderData<typeof loader>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === 'loading';
+  const search = searchParams.get('search') ?? '';
+
+  const updateSearch = (value: string) => {
+    setSearchParams((prev) => {
+      prev.set('search', value);
+      prev.set('page', '1');
+      return prev;
+    });
+  };
+
+  const goToPage = (page: number) => {
+    setSearchParams((prev) => {
+      prev.set('page', String(page));
+      return prev;
+    });
+  };
+
+  return (
+    <div className="p-6 space-y-4">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold"><%= pageConfig ? pageConfig.title : entity.name + ' List' %></h1>
+        <input
+          type="text"
+          placeholder="Search..."
+          defaultValue={search}
+          onChange={(e) => updateSearch(e.target.value)}
+          className="border px-3 py-1.5 rounded-md text-sm w-64"
+        />
+      </div>
+
+      <div className={`border rounded-lg overflow-hidden ${isLoading ? 'opacity-60' : ''}`}>
+        <table className="w-full text-left border-collapse text-sm">
+          <thead className="bg-gray-100 border-b">
+            <tr>
+<% if (pageConfig && pageConfig.columns.length > 0) { -%>
+<% pageConfig.columns.forEach(col => { -%>
+              <th className="p-3 font-medium"><%= col.label %></th>
+<% }); -%>
+<% } else { -%>
+              <th className="p-3 font-medium">ID</th>
+              <th className="p-3 font-medium">Created At</th>
+<% } -%>
+            </tr>
+          </thead>
+          <tbody className="divide-y">
+            {records.length === 0 ? (
+              <tr>
+                <td className="p-6 text-center text-gray-500" colSpan={<%= (pageConfig && pageConfig.columns.length > 0) ? pageConfig.columns.length : 2 %>}>
+                  No records found.
+                </td>
+              </tr>
+            ) : (
+              records.map((item) => (
+                <tr key={String(item.id)} className="hover:bg-gray-50">
+<% if (pageConfig && pageConfig.columns.length > 0) { -%>
+<% pageConfig.columns.forEach(col => { -%>
+                  <td className="p-3">{String(item['<%= col.fieldName %>'] ?? '')}</td>
+<% }); -%>
+<% } else { -%>
+                  <td className="p-3">{String(item.id)}</td>
+                  <td className="p-3">{String(item.createdAt)}</td>
+<% } -%>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex items-center justify-between pt-2">
+        <button
+          disabled={pagination.page <= 1 || isLoading}
+          onClick={() => goToPage(pagination.page - 1)}
+          className="px-3 py-1 border rounded text-sm disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="text-sm">
+          Page {pagination.page} of {pagination.totalPages} ({pagination.total} total)
+        </span>
+        <button
+          disabled={pagination.page >= pagination.totalPages || isLoading}
+          onClick={() => goToPage(pagination.page + 1)}
+          className="px-3 py-1 border rounded text-sm disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+}

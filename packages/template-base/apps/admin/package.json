@@ -1,0 +1,38 @@
+{
+	"name": "@workspace/admin",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "react-router dev",
+		"build": "react-router build",
+		"start": "tsx server.ts"
+	},
+	"dependencies": {
+		"@react-router/express": "^7.9.0",
+		"@react-router/fs-routes": "^7.9.0",
+		"@react-router/node": "^7.9.0",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"express": "^4.21.2",
+		"http-proxy-middleware": "^3.0.3",
+		"isbot": "^5.1.17",
+		"lucide-react": "^0.468.0",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"react-router": "^7.9.0",
+		"tailwind-merge": "^2.6.0",
+		"tsx": "^4.22.4"
+	},
+	"devDependencies": {
+		"@react-router/dev": "^7.9.0",
+		"@tailwindcss/vite": "^4.1.0",
+		"@types/express": "^4.17.21",
+		"@types/node": "^22.20.0",
+		"@types/react": "^19.1.0",
+		"@types/react-dom": "^19.1.0",
+		"tailwindcss": "^4.1.0",
+		"typescript": "^5.9.3",
+		"vite": "^6.3.0"
+	}
+}

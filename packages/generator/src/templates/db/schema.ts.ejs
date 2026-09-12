@@ -1,0 +1,30 @@
+import { pgTable, text, integer, numeric, boolean, timestamp, uuid, jsonb } from 'drizzle-orm/pg-core';
+
+export const <%= entity.tableName %> = pgTable('<%= entity.tableName %>', {
+<% entity.fields.forEach(field => { -%>
+<% if (field.name === 'id') { -%>
+  id: uuid('id').defaultRandom().primaryKey(),
+<% } else if (field.name === 'created_at') { -%>
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+<% } else if (field.name === 'updated_at') { -%>
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+<% } else if (field.type === 'string' || field.type === 'image_url') { -%>
+  <%= field.name %>: text('<%= field.name %>')<% if (field.required) { %>.notNull()<% } %><% if (field.unique) { %>.unique()<% } %>,
+<% } else if (field.type === 'text') { -%>
+  <%= field.name %>: text('<%= field.name %>')<% if (field.required) { %>.notNull()<% } %>,
+<% } else if (field.type === 'integer') { -%>
+  <%= field.name %>: integer('<%= field.name %>')<% if (field.required) { %>.notNull()<% } %>,
+<% } else if (field.type === 'decimal') { -%>
+  <%= field.name %>: numeric('<%= field.name %>')<% if (field.required) { %>.notNull()<% } %>,
+<% } else if (field.type === 'boolean') { -%>
+  <%= field.name %>: boolean('<%= field.name %>').default(<%= field.defaultValue ?? false %>)<% if (field.required) { %>.notNull()<% } %>,
+<% } else if (field.type === 'datetime') { -%>
+  <%= field.name %>: timestamp('<%= field.name %>')<% if (field.required) { %>.notNull()<% } %>,
+<% } else if (field.type === 'json') { -%>
+  <%= field.name %>: jsonb('<%= field.name %>')<% if (field.required) { %>.notNull()<% } %>,
+<% } -%>
+<% }); -%>
+});
+
+export type <%= entity.name %>Select = typeof <%= entity.tableName %>.$inferSelect;
+export type <%= entity.name %>Insert = typeof <%= entity.tableName %>.$inferInsert;

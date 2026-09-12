@@ -1,0 +1,27 @@
+{
+	"name": "@workspace/generator",
+	"version": "1.0.0",
+	"private": false,
+	"scripts": {
+		"build:esm": "tsup src/index.ts --format esm && cp -r \"src/templates\" dist/templates",
+		"build:types": "echo 'export * from \"../src/index.js\";' > dist/index.d.ts",
+		"build": "pnpm build:esm && pnpm build:types"
+	},
+	"types": "dist/index.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"dependencies": {
+		"@workspace/core": "workspace:*",
+		"archiver": "^8.0.0",
+		"ejs": "^6.0.1",
+		"fs-extra": "^11.4.0"
+	},
+	"devDependencies": {
+		"@types/archiver": "^8.0.0",
+		"@types/ejs": "^3.1.5",
+		"@types/fs-extra": "^11.0.4",
+		"@types/node": "^22.20.2",
+		"tsup": "^8.5.1",
+		"typescript": "^7.0.2"
+	}
+}

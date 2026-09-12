@@ -1,0 +1,35 @@
+{
+	"name": "@workspace/web",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "react-router dev",
+		"build": "react-router build",
+		"start": "vite preview"
+	},
+	"dependencies": {
+		"@radix-ui/react-slot": "^1.1.1",
+		"@react-router/node": "^8.3.1",
+		"@workspace/core": "workspace:*",
+		"@workspace/generator": "workspace:*",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"lucide-react": "^0.468.0",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"react-router": "^7.9.0",
+		"tailwind-merge": "^2.6.0",
+		"isbot": "^5"
+	},
+	"devDependencies": {
+		"@react-router/dev": "^7.9.0",
+		"@tailwindcss/vite": "^4.1.0",
+		"@types/node": "^22.20.0",
+		"@types/react": "^19.1.0",
+		"@types/react-dom": "^19.1.0",
+		"tailwindcss": "^4.1.0",
+		"typescript": "^5.9.3",
+		"vite": "^6.3.0"
+	}
+}

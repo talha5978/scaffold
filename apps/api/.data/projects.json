@@ -1,0 +1,89 @@
+[
+	{
+		"name": "First Portal",
+		"slug": "first_portal",
+		"auth": {
+			"jwt": true,
+			"googleOAuth": false
+		},
+		"integrations": {
+			"cloudinary": false
+		},
+		"entities": [
+			{
+				"name": "User",
+				"tableName": "users",
+				"fields": [
+					{
+						"name": "id",
+						"type": "uuid",
+						"required": true,
+						"unique": true
+					},
+					{
+						"name": "name",
+						"type": "string",
+						"required": false,
+						"unique": false
+					},
+					{
+						"name": "email",
+						"type": "string",
+						"required": true,
+						"unique": false
+					},
+					{
+						"name": "password",
+						"type": "string",
+						"required": true,
+						"unique": false
+					},
+					{
+						"name": "createdAt",
+						"type": "datetime",
+						"required": false,
+						"unique": false
+					},
+					{
+						"name": "updatedAt",
+						"type": "datetime",
+						"required": false,
+						"unique": false
+					}
+				]
+			}
+		],
+		"pages": [
+			{
+				"id": "221f30af-d8fd-4859-952f-bab9066b71fe",
+				"title": "Add User",
+				"routePath": "add user",
+				"entity": "User",
+				"columns": [
+					{
+						"fieldName": "name",
+						"label": "name",
+						"sortable": true,
+						"searchable": true
+					},
+					{
+						"fieldName": "email",
+						"label": "email",
+						"sortable": true,
+						"searchable": true
+					},
+					{
+						"fieldName": "password",
+						"label": "password",
+						"sortable": true,
+						"searchable": true
+					}
+				],
+				"searchableFields": ["name", "email"]
+			}
+		],
+		"id": "0677e914-36fa-4a9c-9bcd-437a47fe9838",
+		"createdAt": "2026-09-12T10:32:38.579Z",
+		"updatedAt": "2026-09-12T10:52:36.358Z"
+	}
+]

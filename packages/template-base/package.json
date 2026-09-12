@@ -1,0 +1,36 @@
+{
+	"name": "my_workspace",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"dev": "dotenv -- turbo run dev",
+		"build": "dotenv -- turbo run build",
+		"start": "dotenv -- turbo run start",
+		"backend:dev": "dotenv -- turbo run dev --filter=@workspace/api",
+		"backend:build": "dotenv -- turbo run build --filter=@workspace/api",
+		"backend:start": "dotenv -- turbo run start --filter=@workspace/api",
+		"admin:dev": "dotenv -- turbo run dev --filter=@workspace/admin",
+		"admin:build": "dotenv -- turbo run build --filter=@workspace/admin",
+		"admin:start": "dotenv -- turbo run start --filter=@workspace/admin",
+		"db:generate": "dotenv -- turbo run db:generate --filter=@workspace/db",
+		"db:migrate": "dotenv -- turbo run db:migrate --filter=@workspace/db",
+		"db:push": "dotenv -- turbo run db:push --filter=@workspace/db",
+		"format": "prettier . --write \"**/*.{js,ts,tsx,jsx,json,md,css,scss,yaml}\"",
+		"ws:add": "node scripts/add-package.js"
+	},
+	"lint-staged": {
+		"*.{js,ts,tsx,jsx,json,md,css,scss,yaml}": "prettier --write"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@11.1.1",
+	"type": "module",
+	"devDependencies": {
+		"dotenv-cli": "^11.0.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.1.1",
+		"prettier": "^3.9.6",
+		"turbo": "^2.10.6"
+	}
+}

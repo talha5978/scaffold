@@ -1,0 +1,21 @@
+{
+	"name": "@workspace/core",
+	"version": "1.0.0",
+	"private": false,
+	"scripts": {
+		"build:esm": "tsup src/index.ts --format esm",
+		"build:types": "echo 'export * from \"../src/index.js\";' > dist/index.d.ts",
+		"build": "pnpm build:esm && pnpm build:types"
+	},
+	"types": "dist/index.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"devDependencies": {
+		"@types/node": "^22.20.2",
+		"tsup": "^8.5.1",
+		"typescript": "^7.0.2"
+	},
+	"dependencies": {
+		"zod": "^4.6.1"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"name": "@workspace/db",
+	"version": "1.0.0",
+	"private": false,
+	"scripts": {
+		"build:esm": "tsup src/index.ts --format esm",
+		"build:types": "echo 'export * from \"../src/index.js\";' > dist/index.d.ts",
+		"build": "pnpm build:esm && pnpm build:types",
+		"db:generate": "drizzle-kit generate --config=drizzle.config.ts",
+		"db:migration": "drizzle-kit migrate --config=drizzle.config.ts",
+		"db:push": "drizzle-kit push --config=drizzle.config.ts --force"
+	},
+	"types": "dist/index.d.ts",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"type": "module",
+	"dependencies": {
+		"drizzle-kit": "^0.31.10",
+		"drizzle-orm": "^0.45.2",
+		"postgres": "^3.4.9"
+	},
+	"devDependencies": {
+		"@types/node": "^26.1.0",
+		"tsup": "^8.5.1",
+		"typescript": "^5.9.3"
+	}
+}
